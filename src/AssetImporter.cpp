@@ -22,7 +22,7 @@ Il2CppObject* bs_utils::AssetImporter::InstantiateAsset(std::string_view nameSpa
     RET_0_UNLESS(LoadedAsset());
     // RET_0_UNLESS(CheckAssetClass(asset));
 
-    auto* ret = RET_0_UNLESS(il2cpp_utils::RunMethod(nameSpace, klass, method, asset));
+    auto* ret = RET_0_UNLESS(il2cpp_utils::RunMethod(nameSpace, klass, method, const_cast<Il2CppObject*>(asset)));
     getLogger().info("Instantiated Asset Object (%p)", ret);
     return ret;
 }

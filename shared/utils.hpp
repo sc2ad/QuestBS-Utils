@@ -6,6 +6,7 @@
 #include "../extern/beatsaber-hook/shared/utils/utils.h"
 #include <functional>
 #include "../extern/beatsaber-hook/shared/utils/typedefs.h"
+#include "../extern/beatsaber-hook/shared/utils/il2cpp-utils.hpp"
 
 namespace bs_utils {
     struct DisablingModInfo {
@@ -40,7 +41,7 @@ namespace bs_utils {
     };
     class AssetImporter {
         public:
-            const Il2CppString const* assetFilePath = nullptr;
+            Il2CppString* assetFilePath = nullptr;
             Il2CppString* assetName = nullptr;
             Il2CppReflectionType* assetType = nullptr;
             std::function<void(AssetImporter*)> whenDone;

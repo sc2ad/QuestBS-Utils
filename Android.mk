@@ -31,7 +31,7 @@ rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
 # Build the beatsaber-hook shared library, SPECIFICALLY VERSIONED!
 include $(CLEAR_VARS)
 LOCAL_MODULE	        := beatsaber-hook
-LOCAL_SRC_FILES         := ./include/libs/libbeatsaber-hook_2019_2_1f1_0_1_4.so
+LOCAL_SRC_FILES         := ./include/libs/libbeatsaber-hook_2019_0_2_1.so
 LOCAL_EXPORT_C_INCLUDES := ./extern/beatsaber-hook/shared/
 include $(PREBUILT_SHARED_LIBRARY)
 
@@ -40,7 +40,9 @@ LOCAL_SHARED_LIBRARIES += beatsaber-hook
 LOCAL_LDLIBS           := -llog
 LOCAL_CFLAGS           := -D'VERSION="0.1.0"' -I'c:/Program Files/Unity/Editor/Data/il2cpp/libil2cpp'
 LOCAL_MODULE           := bs-utils
-LOCAL_CPPFLAGS         := -std=c++2a -frrti
+LOCAL_CPPFLAGS         := -std=c++2a -frtti
 LOCAL_C_INCLUDES       := ./include ./src
 LOCAL_SRC_FILES        := $(call rwildcard,src/,*.cpp)
+LOCAL_SRC_FILES        += $(call rwildcard,extern/beatsaber-hook/src/inline-hook/,*.cpp)
+LOCAL_SRC_FILES        += $(call rwildcard,extern/beatsaber-hook/src/inline-hook/,*.c)
 include $(BUILD_SHARED_LIBRARY)
