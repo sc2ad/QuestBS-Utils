@@ -46,9 +46,19 @@ namespace bs_utils {
             Il2CppReflectionType* assetType = nullptr;
             std::function<void(AssetImporter*)> whenDone;
 
-            bool pathExists = false;
+            const bool pathExists = false;
+            /// @brief Returns if the asset bundle has been loaded and is not null
+            /// @return Asset bundle loaded
             const bool LoadedAssetBundle() const { return assetBundle; }
+            /// @brief Returns if the asset has been loaded and is not null
+            /// @return Asset loaded
             const bool LoadedAsset() const { return asset; }
+            /// @brief Returns the loaded asset bundle
+            /// @return Asset bundle
+            const Il2CppObject* GetAssetBundle() const { return assetBundle; }
+            /// @brief Returns loaded asset
+            /// @return Asset
+            const Il2CppObject* GetAsset() const { return asset; }
 
             bool SetNextAssetType(std::string_view assetNamespace, std::string_view assetClassName)
             {
