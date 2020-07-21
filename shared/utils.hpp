@@ -46,7 +46,7 @@ namespace bs_utils {
             Il2CppReflectionType* assetType = nullptr;
             std::function<void(AssetImporter*)> whenDone;
 
-            const bool pathExists = false;
+            bool pathExists = false;
             /// @brief Returns if the asset bundle has been loaded and is not null
             /// @return Asset bundle loaded
             const bool LoadedAssetBundle() const { return assetBundle; }
