@@ -1,8 +1,8 @@
-#include "../extern/beatsaber-hook/shared/utils/utils.h"
-#include "../extern/beatsaber-hook/shared/utils/typedefs.h"
-#include "../extern/beatsaber-hook/shared/utils/il2cpp-utils.hpp"
+#include "beatsaber-hook/utils/utils.h"
+#include "beatsaber-hook/utils/typedefs.h"
+#include "beatsaber-hook/utils/il2cpp-utils.hpp"
 #include "utils-logging.hpp"
-#include "../shared/utils.hpp"
+#include "utils.hpp"
 
 MAKE_HOOK_OFFSETLESS(SoloFreePlayFlowCoordinator_ProcessScore, void, Il2CppObject* self, Il2CppObject* playerLevelStats, Il2CppObject* levelCompletionResults, Il2CppObject* difficultyBeatmap) {
     if (!bs_utils::Submission::getEnabled()) {

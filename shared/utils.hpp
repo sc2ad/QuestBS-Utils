@@ -2,11 +2,11 @@
 
 #include <unordered_set>
 #include <string>
-#include "../extern/beatsaber-hook/include/modloader.hpp"
-#include "../extern/beatsaber-hook/shared/utils/utils.h"
+#include "modloader/modloader.hpp"
+#include "beatsaber-hook/utils/utils.h"
 #include <functional>
-#include "../extern/beatsaber-hook/shared/utils/typedefs.h"
-#include "../extern/beatsaber-hook/shared/utils/il2cpp-utils.hpp"
+#include "beatsaber-hook/utils/typedefs.h"
+#include "beatsaber-hook/utils/il2cpp-utils.hpp"
 
 namespace bs_utils {
     struct DisablingModInfo {
