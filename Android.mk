@@ -22,13 +22,13 @@ rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
 include $(CLEAR_VARS)
 LOCAL_MODULE := beatsaber-hook
 LOCAL_EXPORT_C_INCLUDES := extern/beatsaber-hook
-LOCAL_SRC_FILES := extern/beatsaber-hook_0_3_0.so
+LOCAL_SRC_FILES := extern/libbeatsaber-hook_0_3_2.so
 include $(PREBUILT_SHARED_LIBRARY)
 # Creating prebuilt for dependency: modloader - version: 0.1.0
 include $(CLEAR_VARS)
 LOCAL_MODULE := modloader
 LOCAL_EXPORT_C_INCLUDES := extern/modloader
-LOCAL_SRC_FILES := extern/modloader_0_1_0.so
+LOCAL_SRC_FILES := extern/libmodloader.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
@@ -39,7 +39,7 @@ LOCAL_SRC_FILES += $(call rwildcard,extern/beatsaber-hook/src/inline-hook/,*.c)
 LOCAL_SHARED_LIBRARIES += beatsaber-hook
 LOCAL_SHARED_LIBRARIES += modloader
 LOCAL_LDLIBS += -llog
-LOCAL_CFLAGS += -DVERSION='"0.1.1"' -I'c:/Program Files/Unity/Editor/Data/il2cpp/libil2cpp' -DID='"bs-utils"' -I'./shared' -I'./extern'
+LOCAL_CFLAGS += -DVERSION='"0.1.2"' -I'c:/Program Files/Unity/Editor/Data/il2cpp/libil2cpp' -DID='"bs-utils"' -I'./shared' -I'./extern'
 LOCAL_CPPFLAGS += -std=c++2a -frtti
 LOCAL_C_INCLUDES += ./include ./src
 include $(BUILD_SHARED_LIBRARY)

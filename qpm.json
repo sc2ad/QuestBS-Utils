@@ -4,16 +4,16 @@
   "info": {
     "name": "bs-utils",
     "id": "bs-utils",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "url": "https://github.com/sc2ad/QuestBS-Utils/",
     "additionalData": {
-      "soLink": "https://github.com/sc2ad/QuestBS-Utils/releases/tag/v0.1.1"
+      "soLink": "https://github.com/sc2ad/QuestBS-Utils/releases/tag/v0.1.2"
     }
   },
   "dependencies": [
     {
       "id": "beatsaber-hook",
-      "versionRange": "^0.3.0",
+      "versionRange": "^0.3.2",
       "additionalData": {
         "extraFiles": [
           "src/inline-hook"
