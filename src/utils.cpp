@@ -25,10 +25,11 @@ namespace bs_utils {
             getLogger().info("Mod: %s is disabling score submission multiple times!", info.id.c_str());
             return;
         }
-        if (disablingMods.empty() && enabled) {
+        if (!disablingMods.empty() && enabled) {
             // Disable score submission
             getLogger().info("Mod: %s is disabling score submission!", info.id.c_str());
             setenv("disable_ss_upload", "1", true);
+            // this will also disable vanilla score submission via main.cpp
             enabled = false;
         }
         disablingMods.insert(info);
