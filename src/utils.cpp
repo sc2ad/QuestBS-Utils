@@ -37,7 +37,7 @@ namespace bs_utils {
     const std::unordered_set<DisablingModInfo, DisablingModInfoHash> Submission::getDisablingMods() {
         return disablingMods;
     }
-    const bool Submission::getEnabled() {
+    bool Submission::getEnabled() {
         return enabled;
     }
 }
