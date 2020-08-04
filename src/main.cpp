@@ -1,6 +1,6 @@
-#include "beatsaber-hook/utils/utils.h"
-#include "beatsaber-hook/utils/typedefs.h"
-#include "beatsaber-hook/utils/il2cpp-utils.hpp"
+#include "beatsaber-hook/shared/utils/utils.h"
+#include "beatsaber-hook/shared/utils/typedefs.h"
+#include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
 #include "utils-logging.hpp"
 #include "utils.hpp"
 

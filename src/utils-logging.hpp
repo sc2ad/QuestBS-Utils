@@ -1,5 +1,5 @@
 #pragma once
-#include "beatsaber-hook/utils/logging.hpp"
+#include "beatsaber-hook/shared/utils/logging.hpp"
 
 #ifndef ID
 #define ID "bs-utils"

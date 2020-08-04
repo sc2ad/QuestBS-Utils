@@ -1,7 +1,7 @@
 #include "utils.hpp"
 #include "utils-logging.hpp"
-#include "beatsaber-hook/utils/il2cpp-functions.hpp"
-#include "beatsaber-hook/utils/il2cpp-utils.hpp"
+#include "beatsaber-hook/shared/utils/il2cpp-functions.hpp"
+#include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
 
 namespace bs_utils {
     bool CheckAssetClass(Il2CppObject* asset) {

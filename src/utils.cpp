@@ -1,7 +1,7 @@
 // To use, simply add bs-utils.so to your Android.mk, and #include utils.hpp
 #include "utils.hpp"
 #include "utils-logging.hpp"
-#include "beatsaber-hook/utils/logging.hpp"
+#include "beatsaber-hook/shared/utils/logging.hpp"
 #include <stdlib.h>
 
 namespace bs_utils {

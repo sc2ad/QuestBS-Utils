@@ -2,11 +2,11 @@
 
 #include <unordered_set>
 #include <string>
-#include "modloader/modloader.hpp"
-#include "beatsaber-hook/utils/utils.h"
+#include "modloader/shared/modloader.hpp"
+#include "beatsaber-hook/shared/utils/utils.h"
 #include <functional>
-#include "beatsaber-hook/utils/typedefs.h"
-#include "beatsaber-hook/utils/il2cpp-utils.hpp"
+#include "beatsaber-hook/shared/utils/typedefs.h"
+#include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
 
 namespace bs_utils {
     /// @struct Information about the mod that is currentlying disabling score submission
