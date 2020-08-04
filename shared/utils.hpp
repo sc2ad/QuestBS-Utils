@@ -39,81 +39,27 @@ namespace bs_utils {
             static std::unordered_set<DisablingModInfo, DisablingModInfoHash> disablingMods;
             static bool enabled;
     };
-    class AssetImporter {
-        public:
-            Il2CppString* assetFilePath = nullptr;
-            Il2CppString* assetName = nullptr;
-            Il2CppReflectionType* assetType = nullptr;
-            std::function<void(AssetImporter*)> whenDone;
 
-            bool pathExists = false;
-            /// @brief Returns if the asset bundle has been loaded and is not null
-            /// @return Asset bundle loaded
-            const bool LoadedAssetBundle() const { return assetBundle; }
-            /// @brief Returns if the asset has been loaded and is not null
-            /// @return Asset loaded
-            const bool LoadedAsset() const { return asset; }
-            /// @brief Returns the loaded asset bundle
-            /// @return Asset bundle
-            const Il2CppObject* GetAssetBundle() const { return assetBundle; }
-            /// @brief Returns loaded asset
-            /// @return Asset
-            const Il2CppObject* GetAsset() const { return asset; }
+    typedef Il2CppObject Asset;
 
-            bool SetNextAssetType(std::string_view assetNamespace, std::string_view assetClassName)
-            {
-                // TODO: instantly return true if assetType is already set to these params
-                if (assetAsync && !asset)
-                    return false;
-                assetType = RET_0_UNLESS(il2cpp_utils::GetSystemType(assetNamespace, assetClassName));
-                assetAsync = nullptr;
-                asset = nullptr;
-                return true;
-            }
+    class AssetBundle : public Il2CppObject {
+        typedef function_ptr_t<void, Asset*> AssetCallback;
+        typedef function_ptr_t<void, AssetBundle*> AssetBundleCallback;
 
-            AssetImporter(std::string_view assetBundlePath)
-            {
-                assetFilePath = RET_V_UNLESS(il2cpp_utils::createcsstr(assetBundlePath));
-                pathExists = fileexists(assetBundlePath);
-            }
+      public:
+        AssetBundle() = delete;
+        static bool LoadFromFileAsync(std::string_view filePath, AssetBundleCallback callback);
+        static AssetBundle* LoadFromFile(std::string_view filePath);
 
-            AssetImporter(std::string_view assetBundlePath, std::string_view assetNameS, std::string_view assetNamespace = "UnityEngine",
-                std::string_view assetClassName = "GameObject")
-                : AssetImporter(assetBundlePath)
-            {
-                assetName = RET_V_UNLESS(il2cpp_utils::createcsstr(assetNameS));
-                SetNextAssetType(assetNamespace, assetClassName);
-            }
-
-            // Instantiates the asset using the provided namespace, class name, and method.
-            // Returns the instantiated asset, or nullptr if it failed.
-            Il2CppObject* InstantiateAsset(std::string_view nameSpace = "UnityEngine", std::string_view klass = "Object",
-                std::string_view method = "Instantiate") const;
-
-            // Returns true if the asset bundle load has been requested, false otherwise
-            bool LoadAssetBundle(bool alsoLoadAsset = false);
-            // Returns true if the asset load has been requested, false otherwise
-            bool LoadAsset(std::string_view assetNameS = "");
-            // Returns true if the callback was stored, false if it was immediately called
-            bool RegisterOrDoCallback(decltype(whenDone) callback)
-            {
-                if (LoadedAsset()) {
-                    callback(this);
-                    return false;
-                } else {
-                    whenDone = callback;
-                    return true;
-                }
-            }
-
-        private:
-            Il2CppObject* bundleAsync = nullptr;
-            Il2CppObject* assetBundle = nullptr;
-            Il2CppObject* assetAsync = nullptr;
-            Il2CppObject* asset = nullptr;
-            bool permissionToLoadAsset = false;
-
-            static void AssetBundleComplete(AssetImporter* obj, Il2CppObject* asyncOp);
-            static void AssetComplete(AssetImporter* obj, Il2CppObject* asyncOp);
+        // Loads the asset with the given name and type from this bundle, then calls the given callback.
+        // If not supplied, assetType will default to UnityEngine.GameObject.
+        bool LoadAssetAsync(std::string_view assetName, AssetCallback callback, Il2CppReflectionType* assetType = nullptr);
+        // Loads the asset with the given name and type from this bundle, blocking until finished.
+        // If not supplied, assetType will default to UnityEngine.GameObject.
+        Asset* LoadAsset(std::string_view assetName, Il2CppReflectionType* assetType = nullptr);
+      private:
+        static void AssetBundleComplete(AssetBundleCallback callback, Il2CppObject* assetBundleCreateRequest);
+        static void AssetComplete(AssetCallback callback, Il2CppObject* assetBundleRequest);
     };
 }
+DEFINE_IL2CPP_ARG_TYPE(bs_utils::AssetBundle*, "UnityEngine", "AssetBundle");
