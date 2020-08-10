@@ -2,11 +2,7 @@
 
 #include <string>
 #include <unordered_set>
-
 #include "modloader/shared/modloader.hpp"
-#include "beatsaber-hook/shared/utils/utils.h"
-#include "beatsaber-hook/shared/utils/typedefs.h"
-#include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
 
 namespace bs_utils {
     /// @struct Information about the mod that is currentlying disabling score submission
@@ -55,18 +51,4 @@ namespace bs_utils {
             static std::unordered_set<DisablingModInfo, DisablingModInfoHash> disablingMods;
             static bool enabled;
     };
-
-    template<auto>
-    struct member_wrap_t;
-
-    template<typename TRet, typename T, typename... TArgs, TRet(T::* member)(TArgs...)>
-    struct member_wrap_t<member> {
-        [[gnu::noinline]]
-        static inline TRet wrap(T* self, TArgs&& ...args) {
-            return (self->*member)(std::forward<TArgs>(args)...);
-        }
-    };
-
-    template<auto Member>
-    constexpr auto wrap = &member_wrap_t<Member>::wrap;
 }
