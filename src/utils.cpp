@@ -2,11 +2,31 @@
 #include "utils.hpp"
 #include "utils-logging.hpp"
 #include "beatsaber-hook/shared/utils/logging.hpp"
+#include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
+#include "beatsaber-hook/shared/utils/utils.h"
 #include <stdlib.h>
+
+MAKE_HOOK_OFFSETLESS(SoloFreePlayFlowCoordinator_ProcessScore, void, Il2CppObject* self, Il2CppObject* playerLevelStats, Il2CppObject* levelCompletionResults, Il2CppObject* difficultyBeatmap) {
+    if (!bs_utils::Submission::getEnabled()) {
+        getLogger().debug("Blocking vanilla score processing!");
+        return;
+    }
+    getLogger().debug("Allowing vanilla score processing!");
+    SoloFreePlayFlowCoordinator_ProcessScore(self, playerLevelStats, levelCompletionResults, difficultyBeatmap);
+}
 
 namespace bs_utils {
     std::unordered_set<DisablingModInfo, DisablingModInfoHash> Submission::disablingMods;
     bool Submission::enabled = true;
+    bool Submission::initialized = false;
+
+    void Submission::init() {
+        if (!initialized) {
+            INSTALL_HOOK_OFFSETLESS(SoloFreePlayFlowCoordinator_ProcessScore, il2cpp_utils::FindMethodUnsafe("", "SoloFreePlayFlowCoordinator", "ProcessScore", 3));
+            initialized = true;
+        }
+    }
+
     void Submission::enable(const ModInfo& info) {
         auto itr = disablingMods.find(info);
         if (itr != disablingMods.end()) {

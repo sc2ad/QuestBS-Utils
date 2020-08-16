@@ -49,6 +49,8 @@ namespace bs_utils {
             static bool getEnabled();
         private:
             static std::unordered_set<DisablingModInfo, DisablingModInfoHash> disablingMods;
+            static void init();
             static bool enabled;
+            static bool initialized;
     };
 }
