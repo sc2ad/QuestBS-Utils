@@ -20,11 +20,9 @@ namespace bs_utils {
         getLogger().info("AssetBundle::AssetComplete called!");
         CRASH_UNLESS(il2cpp_utils::GetPropertyValue<bool>(assetBundleRequest, "isDone").value_or(false));
         auto* asset = RET_V_UNLESS(il2cpp_utils::GetPropertyValue<Asset*>(assetBundleRequest, "asset"));
-        // RET_V_UNLESS(CheckAssetClass(asset));
         (*callback)(asset);
         il2cpp_utils::RunMethod(assetBundleRequest, "Finalize");
         getLogger().info("AssetBundle::AssetComplete finished!");
-        delete callback;
     }
 
     Asset* AssetBundle::LoadAsset(std::string_view assetName, Il2CppReflectionType* assetType) {
@@ -56,7 +54,6 @@ namespace bs_utils {
         (*callback)(assetBundle);
         il2cpp_utils::RunMethod(assetBundleCreateRequest, "Finalize");
         getLogger().info("UnityAssetLoader: AssetBundleCreateRequestComplete Finished!");
-        delete callback;
     }
 
     Il2CppString* CreateIl2CppStringPathAndEnsureExists(std::string_view filePath) {
