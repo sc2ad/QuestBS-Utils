@@ -4,7 +4,7 @@
   "info": {
     "name": "bs-utils",
     "id": "bs-utils",
-    "version": "0.2.0",
+    "version": "0.2.3",
     "url": "https://github.com/sc2ad/QuestBS-Utils",
     "additionalData": {
       "soLink": "https://github.com/sc2ad/QuestBS-Utils/releases/download/v0.2.0/libbs-utils.so",
