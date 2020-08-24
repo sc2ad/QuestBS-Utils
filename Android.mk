@@ -32,14 +32,14 @@ LOCAL_SRC_FILES := extern/libbeatsaber-hook_0_4_7.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := bs-utils
+LOCAL_MODULE := bs-utils_0_3_0
 LOCAL_SRC_FILES += $(call rwildcard,src/,*.cpp)
 LOCAL_SRC_FILES += $(call rwildcard,extern/beatsaber-hook/src/inline-hook/,*.cpp)
 LOCAL_SRC_FILES += $(call rwildcard,extern/beatsaber-hook/src/inline-hook/,*.c)
 LOCAL_SHARED_LIBRARIES += modloader
 LOCAL_SHARED_LIBRARIES += beatsaber-hook_0_4_7
 LOCAL_LDLIBS += -llog
-LOCAL_CFLAGS += -DVERSION='"0.2.0"' -isystem 'extern/libil2cpp/il2cpp/libil2cpp' -DID='"bs-utils"' -I'./shared' -I'./extern'
+LOCAL_CFLAGS += -DVERSION='"0.3.0"' -isystem 'extern/libil2cpp/il2cpp/libil2cpp' -DID='"bs-utils"' -I'./shared' -I'./extern'
 LOCAL_CPPFLAGS += -std=c++2a -frtti
 LOCAL_C_INCLUDES += ./include ./src
 include $(BUILD_SHARED_LIBRARY)
