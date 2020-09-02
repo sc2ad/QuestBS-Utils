@@ -23,16 +23,17 @@ jobs:
       uses: actions/cache@v2
       env:
         cache-name: cache-ndk
+        ndkname: android-ndk-r21
       with:
         path: ndk
-        key: ${{ runner.os }}-${{ env.cache-name }}
+        key: ${{ runner.os }}-${{ env.cache-name }}-${{ env.ndkname }}
         restore-keys: |
-          ${{ runner.os }}-${{ env.cache-name }}
+          ${{ runner.os }}-${{ env.cache-name }}-${{ env.ndkname }}
       
     - name: Install Android NDK
       if: steps.cache-ndk.outputs.cache-hit != 'true'
       env:
-        ndkname: android-ndk-r20
+        ndkname: android-ndk-r21
       run: |
         wget -q -O ndk.zip https://dl.google.com/android/repository/${ndkname}-linux-x86_64.zip
         unzip -q ndk.zip
@@ -43,16 +44,16 @@ jobs:
         cd ndk
         pwd > ${GITHUB_WORKSPACE}/ndkpath.txt
         
-    - name: Cache QPM
-      id: cache-qpm
-      uses: actions/cache@v2
-      env:
-        cache-name: cache-qpm
-      with:
-        path: QPM
-        key: ${{ runner.os }}-${{ env.cache-name }}-1
-        restore-keys: |
-          ${{ runner.os }}-${{ env.cache-name }}-1
+#     - name: Cache QPM
+#       id: cache-qpm
+#       uses: actions/cache@v2
+#       env:
+#         cache-name: cache-qpm
+#       with:
+#         path: QPM
+#         key: ${{ runner.os }}-${{ env.cache-name }}-2
+#         restore-keys: |
+#           ${{ runner.os }}-${{ env.cache-name }}-2
 
     - name: Get QPM
       if: steps.cache-qpm.outputs.cache-hit != 'true'
@@ -131,7 +132,6 @@ jobs:
           repository: ${{ github.repository }}
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
     - name: Get Release Upload URL
       id: get_upload_url
       run: |
@@ -144,7 +144,7 @@ jobs:
       id: libname
       run: |
         cd ./libs/arm64-v8a/
-        pattern="libbeatsaber-hook*.so"
+        pattern="libbs-utils*.so"
         files=( $pattern )
         echo ::set-output name=NAME::"${files[0]}"
     # Upload our release assets
@@ -191,6 +191,9 @@ jobs:
         git push origin HEAD:version-${{ steps.get_tag_version.outputs.TAG }} --force
         git tag --force ${{ steps.get_tag_version.outputs.TAG }} ${{ steps.get_created_commit_id.outputs.ID }}
         git push --tags --force
+        
+#     - name: Merge this branch into whatever branch we were originally built off of.
+#       TODO
         
     - name: QPM Publish
       run: ./QPM/QPM publish
