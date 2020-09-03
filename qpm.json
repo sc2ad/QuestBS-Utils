@@ -7,8 +7,9 @@
     "version": "0.3.2",
     "url": "https://github.com/sc2ad/QuestBS-Utils",
     "additionalData": {
-      "soLink": "https://github.com/sc2ad/QuestBS-Utils/releases/download/v0.2.0/libbs-utils.so",
-      "debugSoLink": "https://github.com/sc2ad/QuestBS-Utils/releases/download/v0.2.0/libbs-utils_debug.so"
+      "soLink": "https://github.com/sc2ad/QuestBS-Utils/releases/download/v0.3.2/libbs-utils_0_3_2.so.so",
+      "debugSoLink": "https://github.com/sc2ad/QuestBS-Utils/releases/download/v0.3.2/debug_libbs-utils_0_3_2.so",
+      "branchName": "version-v0.3.2"
     }
   },
   "dependencies": [
