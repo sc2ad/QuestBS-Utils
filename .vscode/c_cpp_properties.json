@@ -4,13 +4,13 @@
       "defines": [
         "__GNUC__",
         "__aarch64__",
-        "VERSION=\"0.2.1\"",
+        "VERSION=\"0.3.3\"",
         "ID=\"bs-utils\""
       ],
       "includePath": [
         "${workspaceFolder}/**",
         "c:/Program Files/Unity/Editor/Data/il2cpp/libil2cpp",
-        "c:/android-ndk-r20b/**",
+        "c:/android-ndk-r21d/**",
         "${workspaceFolder}/shared",
         "${workspaceFolder}/extern"
       ],
