@@ -84,7 +84,7 @@ jobs:
         ./QPM/QPM restore
     - name: test
       run: |
-        ls ~/.config/QPM
+        ls ./QPM/QPM_Temp/
     - name: Build
       run: |
         cd ${GITHUB_WORKSPACE}
