@@ -6,13 +6,13 @@
 #include "beatsaber-hook/shared/utils/utils.h"
 #include <stdlib.h>
 
-MAKE_HOOK_OFFSETLESS(SoloFreePlayFlowCoordinator_ProcessScore, void, Il2CppObject* self, Il2CppObject* playerLevelStats, Il2CppObject* levelCompletionResults, Il2CppObject* difficultyBeatmap) {
+MAKE_HOOK_OFFSETLESS(LevelCompletionResultsHelper_ProcessScore, void, Il2CppObject* self, Il2CppObject* playerData, Il2CppObject* playerLevelStats, Il2CppObject* levelCompletionResults, Il2CppObject* difficultyBeatmap, Il2CppObject* platformLeaderboardsModel) {
     if (!bs_utils::Submission::getEnabled()) {
         getLogger().debug("Blocking vanilla score processing!");
         return;
     }
     getLogger().debug("Allowing vanilla score processing!");
-    SoloFreePlayFlowCoordinator_ProcessScore(self, playerLevelStats, levelCompletionResults, difficultyBeatmap);
+    LevelCompletionResultsHelper_ProcessScore(self, playerData, playerLevelStats, levelCompletionResults, difficultyBeatmap, platformLeaderboardsModel);
 }
 
 namespace bs_utils {
@@ -22,7 +22,7 @@ namespace bs_utils {
 
     void Submission::init() {
         if (!initialized) {
-            INSTALL_HOOK_OFFSETLESS(SoloFreePlayFlowCoordinator_ProcessScore, il2cpp_utils::FindMethodUnsafe("", "SoloFreePlayFlowCoordinator", "ProcessScore", 3));
+            INSTALL_HOOK_OFFSETLESS(LevelCompletionResultsHelper_ProcessScore, il2cpp_utils::FindMethodUnsafe("", "LevelCompletionResultsHelper", "ProcessScore", 5));
             initialized = true;
         }
     }
