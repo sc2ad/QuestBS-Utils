@@ -41,7 +41,7 @@ namespace bs_utils {
         auto* assetAsync = RET_0_UNLESS(il2cpp_utils::RunMethod(this, "LoadAssetAsync", nameStr, assetType));
 
         auto* method = RET_0_UNLESS(il2cpp_utils::FindMethodUnsafe(assetAsync, "add_completed", 1));
-        auto* action = RET_0_UNLESS(il2cpp_utils::MakeAction(method, 0, new AssetCallback(callback), AssetComplete));
+        auto* action = RET_0_UNLESS(il2cpp_utils::MakeDelegate(method, 0, new AssetCallback(callback), AssetComplete));
 
         RET_0_UNLESS(il2cpp_utils::RunMethod(assetAsync, method, action));
         getLogger().info("Began loading asset async");
@@ -75,7 +75,7 @@ namespace bs_utils {
         RET_0_UNLESS(il2cpp_utils::SetPropertyValue(bundleAsync, "allowSceneActivation", true));
 
         auto method = RET_0_UNLESS(il2cpp_utils::FindMethodUnsafe(bundleAsync, "add_completed", 1));
-        auto action = RET_0_UNLESS(il2cpp_utils::MakeAction(method, 0, new AssetBundleCallback(callback), AssetBundleComplete));
+        auto action = RET_0_UNLESS(il2cpp_utils::MakeDelegate(method, 0, new AssetBundleCallback(callback), AssetBundleComplete));
 
         RET_0_UNLESS(il2cpp_utils::RunMethod(bundleAsync, method, action));
         getLogger().info("Began loading asset bundle '%s' async.", filePath.data());
