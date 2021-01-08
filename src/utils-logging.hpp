@@ -9,4 +9,4 @@
 #define VERSION "0.0.0"
 #endif
 
-const Logger& getLogger();
+Logger& getLogger();

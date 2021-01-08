@@ -19,7 +19,7 @@ namespace bs_utils {
     void AssetBundle::AssetComplete(AssetCallback* callback, Il2CppObject* assetBundleRequest) {
         getLogger().info("AssetBundle::AssetComplete called!");
         CRASH_UNLESS(il2cpp_utils::GetPropertyValue<bool>(assetBundleRequest, "isDone").value_or(false));
-        auto* asset = RET_V_UNLESS(il2cpp_utils::GetPropertyValue<Asset*>(assetBundleRequest, "asset"));
+        auto* asset = RET_V_UNLESS(getLogger(), il2cpp_utils::GetPropertyValue<Asset*>(assetBundleRequest, "asset"));
         (*callback)(asset);
         il2cpp_utils::RunMethod(assetBundleRequest, "Finalize");
         getLogger().info("AssetBundle::AssetComplete finished!");
@@ -30,7 +30,7 @@ namespace bs_utils {
         auto* nameStr = CRASH_UNLESS(il2cpp_utils::createcsstr(assetName));
 
         getLogger().info("Loading asset '%s' synchronously.", assetName.data());
-        return RET_0_UNLESS(il2cpp_utils::RunMethod<Asset*>(this, "LoadAsset", nameStr, assetType));
+        return RET_0_UNLESS(getLogger(), il2cpp_utils::RunMethod<Asset*>(this, "LoadAsset", nameStr, assetType));
     }
 
     bool AssetBundle::LoadAssetAsync(std::string_view assetName, AssetCallback callback, Il2CppReflectionType* assetType) {
@@ -38,46 +38,46 @@ namespace bs_utils {
         auto* nameStr = CRASH_UNLESS(il2cpp_utils::createcsstr(assetName));
         getLogger().info("Loading asset '%s' asynchronously.", assetName.data());
 
-        auto* assetAsync = RET_0_UNLESS(il2cpp_utils::RunMethod(this, "LoadAssetAsync", nameStr, assetType));
+        auto* assetAsync = RET_0_UNLESS(getLogger(), il2cpp_utils::RunMethod(this, "LoadAssetAsync", nameStr, assetType));
 
-        auto* method = RET_0_UNLESS(il2cpp_utils::FindMethodUnsafe(assetAsync, "add_completed", 1));
-        auto* action = RET_0_UNLESS(il2cpp_utils::MakeDelegate(method, 0, new AssetCallback(callback), AssetComplete));
+        auto* method = RET_0_UNLESS(getLogger(), il2cpp_utils::FindMethodUnsafe(assetAsync, "add_completed", 1));
+        auto* action = RET_0_UNLESS(getLogger(), il2cpp_utils::MakeDelegate(method, 0, new AssetCallback(callback), AssetComplete));
 
-        RET_0_UNLESS(il2cpp_utils::RunMethod(assetAsync, method, action));
+        RET_0_UNLESS(getLogger(), il2cpp_utils::RunMethod(assetAsync, method, action));
         getLogger().info("Began loading asset async");
         return true;
     }
 
     void AssetBundle::AssetBundleComplete(AssetBundleCallback* callback, Il2CppObject* assetBundleCreateRequest) {
         getLogger().info("UnityAssetLoader: AssetBundleCreateRequestComplete Called!");
-        auto* assetBundle = RET_V_UNLESS(il2cpp_utils::GetPropertyValue<AssetBundle*>(assetBundleCreateRequest, "assetBundle"));
+        auto* assetBundle = RET_V_UNLESS(getLogger(), il2cpp_utils::GetPropertyValue<AssetBundle*>(assetBundleCreateRequest, "assetBundle"));
         (*callback)(assetBundle);
         il2cpp_utils::RunMethod(assetBundleCreateRequest, "Finalize");
         getLogger().info("UnityAssetLoader: AssetBundleCreateRequestComplete Finished!");
     }
 
     Il2CppString* CreateIl2CppStringPathAndEnsureExists(std::string_view filePath) {
-        auto* assetFilePath = RET_0_UNLESS(il2cpp_utils::createcsstr(filePath));
-        bool pathExists = RET_0_UNLESS(il2cpp_utils::RunMethod<bool>("System.IO", "File", "Exists", assetFilePath));
-        RET_0_UNLESS(pathExists);
+        auto* assetFilePath = RET_0_UNLESS(getLogger(), il2cpp_utils::createcsstr(filePath));
+        bool pathExists = RET_0_UNLESS(getLogger(), il2cpp_utils::RunMethod<bool>("System.IO", "File", "Exists", assetFilePath));
+        RET_0_UNLESS(getLogger(), pathExists);
         return assetFilePath;
     }
 
     AssetBundle* AssetBundle::LoadFromFile(std::string_view filePath) {
-        auto* assetFilePath = RET_0_UNLESS(CreateIl2CppStringPathAndEnsureExists(filePath));
-        return RET_0_UNLESS(il2cpp_utils::RunMethod<AssetBundle*>("UnityEngine", "AssetBundle", "LoadFromFile", assetFilePath));
+        auto* assetFilePath = RET_0_UNLESS(getLogger(), CreateIl2CppStringPathAndEnsureExists(filePath));
+        return RET_0_UNLESS(getLogger(), il2cpp_utils::RunMethod<AssetBundle*>("UnityEngine", "AssetBundle", "LoadFromFile", assetFilePath));
     }
 
     bool AssetBundle::LoadFromFileAsync(std::string_view filePath, AssetBundleCallback callback) {
-        auto* assetFilePath = RET_0_UNLESS(CreateIl2CppStringPathAndEnsureExists(filePath));
+        auto* assetFilePath = RET_0_UNLESS(getLogger(), CreateIl2CppStringPathAndEnsureExists(filePath));
 
-        auto* bundleAsync = RET_0_UNLESS(il2cpp_utils::RunMethod("UnityEngine", "AssetBundle", "LoadFromFileAsync", assetFilePath));
-        RET_0_UNLESS(il2cpp_utils::SetPropertyValue(bundleAsync, "allowSceneActivation", true));
+        auto* bundleAsync = RET_0_UNLESS(getLogger(), il2cpp_utils::RunMethod("UnityEngine", "AssetBundle", "LoadFromFileAsync", assetFilePath));
+        RET_0_UNLESS(getLogger(), il2cpp_utils::SetPropertyValue(bundleAsync, "allowSceneActivation", true));
 
-        auto method = RET_0_UNLESS(il2cpp_utils::FindMethodUnsafe(bundleAsync, "add_completed", 1));
-        auto action = RET_0_UNLESS(il2cpp_utils::MakeDelegate(method, 0, new AssetBundleCallback(callback), AssetBundleComplete));
+        auto method = RET_0_UNLESS(getLogger(), il2cpp_utils::FindMethodUnsafe(bundleAsync, "add_completed", 1));
+        auto action = RET_0_UNLESS(getLogger(), il2cpp_utils::MakeDelegate(method, 0, new AssetBundleCallback(callback), AssetBundleComplete));
 
-        RET_0_UNLESS(il2cpp_utils::RunMethod(bundleAsync, method, action));
+        RET_0_UNLESS(getLogger(), il2cpp_utils::RunMethod(bundleAsync, method, action));
         getLogger().info("Began loading asset bundle '%s' async.", filePath.data());
         return true;
     }

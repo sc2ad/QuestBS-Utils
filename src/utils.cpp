@@ -22,7 +22,7 @@ namespace bs_utils {
 
     void Submission::init() {
         if (!initialized) {
-            INSTALL_HOOK_OFFSETLESS(LevelCompletionResultsHelper_ProcessScore, il2cpp_utils::FindMethodUnsafe("", "LevelCompletionResultsHelper", "ProcessScore", 5));
+            INSTALL_HOOK_OFFSETLESS(getLogger(), LevelCompletionResultsHelper_ProcessScore, il2cpp_utils::FindMethodUnsafe("", "LevelCompletionResultsHelper", "ProcessScore", 5));
             initialized = true;
         }
     }
