@@ -28,6 +28,7 @@ namespace bs_utils {
     }
 
     void Submission::enable(const ModInfo& info) {
+        init();
         auto itr = disablingMods.find(info);
         if (itr != disablingMods.end()) {
             disablingMods.erase(itr);
@@ -40,6 +41,7 @@ namespace bs_utils {
         }
     }
     void Submission::disable(const ModInfo& info) {
+        init();
         if (disablingMods.find(info) != disablingMods.end()) {
             // Don't disable again if this mod has already disabled it once.
             getLogger().info("Mod: %s is disabling score submission multiple times!", info.id.c_str());
