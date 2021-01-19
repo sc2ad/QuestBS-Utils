@@ -6,6 +6,10 @@
 #include "beatsaber-hook/shared/utils/utils.h"
 #include <stdlib.h>
 
+#ifndef PERSISTENT_DIR
+#define PERSISTENT_DIR "/sdcard/ModData/%s/Mods/%s/"
+#endif
+
 MAKE_HOOK_OFFSETLESS(LevelCompletionResultsHelper_ProcessScore, void, Il2CppObject* self, Il2CppObject* playerData, Il2CppObject* playerLevelStats, Il2CppObject* levelCompletionResults, Il2CppObject* difficultyBeatmap, Il2CppObject* platformLeaderboardsModel) {
     if (!bs_utils::Submission::getEnabled()) {
         getLogger().debug("Blocking vanilla score processing!");
@@ -16,6 +20,10 @@ MAKE_HOOK_OFFSETLESS(LevelCompletionResultsHelper_ProcessScore, void, Il2CppObje
 }
 
 namespace bs_utils {
+    std::string getDataDir(const ModInfo& info) {
+        return string_format(PERSISTENT_DIR, Modloader::getApplicationId().c_str(), info.id.c_str());
+    }
+
     std::unordered_set<DisablingModInfo, DisablingModInfoHash> Submission::disablingMods;
     bool Submission::enabled = true;
     bool Submission::initialized = false;
