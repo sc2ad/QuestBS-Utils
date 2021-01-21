@@ -21,7 +21,9 @@ MAKE_HOOK_OFFSETLESS(LevelCompletionResultsHelper_ProcessScore, void, Il2CppObje
 
 namespace bs_utils {
     std::string getDataDir(const ModInfo& info) {
-        return string_format(PERSISTENT_DIR, Modloader::getApplicationId().c_str(), info.id.c_str());
+        auto path = string_format(PERSISTENT_DIR, Modloader::getApplicationId().c_str(), info.id.c_str());
+        mkpath(path);
+        return path;
     }
 
     std::unordered_set<DisablingModInfo, DisablingModInfoHash> Submission::disablingMods;
