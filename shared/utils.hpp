@@ -6,6 +6,7 @@
 
 namespace bs_utils {
     /// @brief Returns a path to the persistent data directory for the provided const ModInfo&.
+    /// PLEASE USE beatsaber-hook's VERSION OF THIS FUNCTION INSTEAD! SEE config-utils.hpp
     /// @param info The const ModInfo& to find a path for.
     /// @return The path to the directory.
     std::string getDataDir(const ModInfo& info);
