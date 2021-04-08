@@ -6,9 +6,15 @@
 #include "beatsaber-hook/shared/utils/utils.h"
 #include <stdlib.h>
 
+#include <mutex>
+
 #ifndef PERSISTENT_DIR
 #define PERSISTENT_DIR "/sdcard/ModData/%s/Mods/%s/"
 #endif
+
+static std::mutex submissionMutex;
+static std::mutex initMutex;
+static std::mutex enabledMutex;
 
 MAKE_HOOK_OFFSETLESS(LevelCompletionResultsHelper_ProcessScore, void, Il2CppObject* self, Il2CppObject* playerData, Il2CppObject* playerLevelStats, Il2CppObject* levelCompletionResults, Il2CppObject* difficultyBeatmap, Il2CppObject* platformLeaderboardsModel) {
     if (!bs_utils::Submission::getEnabled()) {
@@ -32,38 +38,51 @@ namespace bs_utils {
 
     void Submission::init() {
         if (!initialized) {
+            initMutex.lock();
             INSTALL_HOOK_OFFSETLESS(getLogger(), LevelCompletionResultsHelper_ProcessScore, il2cpp_utils::FindMethodUnsafe("", "LevelCompletionResultsHelper", "ProcessScore", 5));
             initialized = true;
+            initMutex.unlock();
         }
     }
 
     void Submission::enable(const ModInfo& info) {
         init();
+        submissionMutex.lock();
         auto itr = disablingMods.find(info);
         if (itr != disablingMods.end()) {
             disablingMods.erase(itr);
         }
         if (disablingMods.empty() && !enabled) {
+            submissionMutex.unlock();
             // Re-enable score submission
+            enabledMutex.lock();
             getLogger().info("Mod: %s is enabling score submission!", info.id.c_str());
             setenv("disable_ss_upload", "0", true);
             enabled = true;
+            enabledMutex.unlock();
+        } else {
+            submissionMutex.unlock();
         }
     }
     void Submission::disable(const ModInfo& info) {
         init();
+        submissionMutex.lock();
         if (disablingMods.find(info) != disablingMods.end()) {
+            submissionMutex.unlock();
             // Don't disable again if this mod has already disabled it once.
             getLogger().info("Mod: %s is disabling score submission multiple times!", info.id.c_str());
             return;
         }
         disablingMods.insert(info);
+        submissionMutex.unlock();
         if (enabled) {
             // Disable score submission
+            enabledMutex.lock();
             getLogger().info("Mod: %s is disabling score submission!", info.id.c_str());
             setenv("disable_ss_upload", "1", true);
             // this will also disable vanilla score submission via main.cpp
             enabled = false;
+            enabledMutex.unlock();
         }
     }
     const std::unordered_set<DisablingModInfo, DisablingModInfoHash> Submission::getDisablingMods() {
