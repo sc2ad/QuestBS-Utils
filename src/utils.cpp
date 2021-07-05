@@ -17,13 +17,13 @@ static std::mutex submissionMutex;
 static std::mutex initMutex;
 static std::mutex enabledMutex;
 
-MAKE_HOOK_FIND_CLASS(LevelCompletionResultsHelper_ProcessScore, "", "LevelCompletionResultsHelper", "ProcessScore", void, Il2CppObject* self, Il2CppObject* playerData, Il2CppObject* playerLevelStats, Il2CppObject* levelCompletionResults, Il2CppObject* difficultyBeatmap, Il2CppObject* platformLeaderboardsModel) {
+MAKE_HOOK_FIND_CLASS_UNSAFE_STATIC (LevelCompletionResultsHelper_ProcessScore, "", "LevelCompletionResultsHelper", "ProcessScore", void, Il2CppObject* playerData, Il2CppObject* playerLevelStats, Il2CppObject* levelCompletionResults, Il2CppObject* difficultyBeatmap, Il2CppObject* platformLeaderboardsModel) {
     if (!bs_utils::Submission::getEnabled()) {
         getLogger().debug("Blocking vanilla score processing!");
         return;
     }
     getLogger().debug("Allowing vanilla score processing!");
-    LevelCompletionResultsHelper_ProcessScore(self, playerData, playerLevelStats, levelCompletionResults, difficultyBeatmap, platformLeaderboardsModel);
+    LevelCompletionResultsHelper_ProcessScore(playerData, playerLevelStats, levelCompletionResults, difficultyBeatmap, platformLeaderboardsModel);
 }
 
 namespace bs_utils {
