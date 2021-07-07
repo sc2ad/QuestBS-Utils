@@ -9,8 +9,8 @@ on:
 jobs:
   build:
     env:
-      module_id: custom-types
-    runs-on: bs-utils
+      module_id: bs-utils
+    runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v2
