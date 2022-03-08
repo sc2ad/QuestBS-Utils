@@ -12,9 +12,9 @@ if (-not ($LastExitCode -eq 0)) {
 }
 
 if ($debug_so.IsPresent) {
-    & adb push build/debug/libquestcosmetics.so /sdcard/Android/data/com.beatgames.beatsaber/files/mods/libquestcosmetics.so
+    & adb push build/libbs-utils.so /sdcard/Android/data/com.beatgames.beatsaber/files/mods/libbs-utils.so
 } else {
-    & adb push build/libquestcosmetics.so /sdcard/Android/data/com.beatgames.beatsaber/files/mods/libquestcosmetics.so
+    & adb push build/libbs-utils.so /sdcard/Android/data/com.beatgames.beatsaber/files/mods/libbs-utils.so
 }
 
 & adb shell am force-stop com.beatgames.beatsaber
