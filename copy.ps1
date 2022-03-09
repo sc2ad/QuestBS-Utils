@@ -1,5 +1,24 @@
-& "$PSScriptRoot/build.ps1"
+param (
+    [Parameter(Mandatory=$false)]
+    [Switch]$debug_so,
+    [Parameter(Mandatory=$false)]
+    [Switch]$log
+)
 
-adb shell am force-stop com.beatgames.beatsaber
+& ./build.ps1
+if (-not ($LastExitCode -eq 0)) {
+    echo "build failed, not copying"
+    exit
+}
 
-adb push libs/arm64-v8a/libbs-utils.so /sdcard/Android/data/com.beatgames.beatsaber/files/mods/libbs-utils.so
+if ($debug_so.IsPresent) {
+    & adb push build/libbs-utils.so /sdcard/Android/data/com.beatgames.beatsaber/files/mods/libbs-utils.so
+} else {
+    & adb push build/libbs-utils.so /sdcard/Android/data/com.beatgames.beatsaber/files/mods/libbs-utils.so
+}
+
+& adb shell am force-stop com.beatgames.beatsaber
+& adb shell am start com.beatgames.beatsaber/com.unity3d.player.UnityPlayerActivity
+if ($log.IsPresent) {
+    & ./log.ps1
+}

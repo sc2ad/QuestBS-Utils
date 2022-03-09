@@ -15,7 +15,12 @@
   "dependencies": [
     {
       "id": "beatsaber-hook",
-      "versionRange": "^2.0.0",
+      "versionRange": "^3.6.0",
+      "additionalData": {}
+    },
+    {
+      "id": "modloader",
+      "versionRange": "^1.2.3",
       "additionalData": {}
     }
   ],
