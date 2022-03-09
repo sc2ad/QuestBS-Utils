@@ -1,6 +1,7 @@
 #include "AssetBundle.hpp"
 #include "utils-logging.hpp"
 #include "beatsaber-hook/shared/utils/utils.h"
+#include "beatsaber-hook/shared/utils/typedefs-string.hpp"
 #include "beatsaber-hook/shared/utils/il2cpp-functions.hpp"
 
 namespace bs_utils {
@@ -27,7 +28,7 @@ namespace bs_utils {
 
     Asset* AssetBundle::LoadAsset(std::string_view assetName, Il2CppReflectionType* assetType) {
         if (!assetType) assetType = CRASH_UNLESS(il2cpp_utils::GetSystemType("UnityEngine", "GameObject"));
-        auto* nameStr = CRASH_UNLESS(il2cpp_utils::createcsstr(assetName));
+        StringW nameStr = assetName;
 
         getLogger().info("Loading asset '%s' synchronously.", assetName.data());
         return RET_0_UNLESS(getLogger(), il2cpp_utils::RunMethod<Asset*>(this, "LoadAsset", nameStr, assetType));
@@ -35,7 +36,7 @@ namespace bs_utils {
 
     bool AssetBundle::LoadAssetAsync(std::string_view assetName, AssetCallback callback, Il2CppReflectionType* assetType) {
         if (!assetType) assetType = CRASH_UNLESS(il2cpp_utils::GetSystemType("UnityEngine", "GameObject"));
-        auto* nameStr = CRASH_UNLESS(il2cpp_utils::createcsstr(assetName));
+        StringW nameStr = assetName;
         getLogger().info("Loading asset '%s' asynchronously.", assetName.data());
 
         auto* assetAsync = RET_0_UNLESS(getLogger(), il2cpp_utils::RunMethod(this, "LoadAssetAsync", nameStr, assetType));
@@ -56,20 +57,20 @@ namespace bs_utils {
         getLogger().info("UnityAssetLoader: AssetBundleCreateRequestComplete Finished!");
     }
 
-    Il2CppString* CreateIl2CppStringPathAndEnsureExists(std::string_view filePath) {
-        auto* assetFilePath = RET_0_UNLESS(getLogger(), il2cpp_utils::createcsstr(filePath));
+    StringW CreateIl2CppStringPathAndEnsureExists(std::string_view filePath) {
+        StringW assetFilePath = filePath;
         bool pathExists = RET_0_UNLESS(getLogger(), il2cpp_utils::RunMethod<bool>("System.IO", "File", "Exists", assetFilePath));
         RET_0_UNLESS(getLogger(), pathExists);
         return assetFilePath;
     }
 
     AssetBundle* AssetBundle::LoadFromFile(std::string_view filePath) {
-        auto* assetFilePath = RET_0_UNLESS(getLogger(), CreateIl2CppStringPathAndEnsureExists(filePath));
+        StringW assetFilePath = RET_0_UNLESS(getLogger(), CreateIl2CppStringPathAndEnsureExists(filePath));
         return RET_0_UNLESS(getLogger(), il2cpp_utils::RunMethod<AssetBundle*>("UnityEngine", "AssetBundle", "LoadFromFile", assetFilePath));
     }
 
     bool AssetBundle::LoadFromFileAsync(std::string_view filePath, AssetBundleCallback callback) {
-        auto* assetFilePath = RET_0_UNLESS(getLogger(), CreateIl2CppStringPathAndEnsureExists(filePath));
+        StringW assetFilePath = RET_0_UNLESS(getLogger(), CreateIl2CppStringPathAndEnsureExists(filePath));
 
         auto* bundleAsync = RET_0_UNLESS(getLogger(), il2cpp_utils::RunMethod("UnityEngine", "AssetBundle", "LoadFromFileAsync", assetFilePath));
         RET_0_UNLESS(getLogger(), il2cpp_utils::SetPropertyValue(bundleAsync, "allowSceneActivation", true));
