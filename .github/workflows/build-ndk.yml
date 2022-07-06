@@ -11,6 +11,7 @@ on:
 
 env:
     module_id: bs-utils
+    qmodName: BS-Utils
 
 jobs:
   build:
@@ -57,7 +58,6 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
-      
     
     - name: QPM Restore
       run: |
@@ -75,7 +75,12 @@ jobs:
     - name: Build
       run: |
         cd ${GITHUB_WORKSPACE}
+        ./QPM/qpm-rust qmod build 
         pwsh -Command ./build.ps1
+
+    - name: Create Qmod
+      run: |
+        pwsh -Command ./createqmod.ps1 ${{env.qmodName}}
     
     - name: Get Library Name
       id: libname
@@ -97,4 +102,11 @@ jobs:
       with:
         name: debug_${{ steps.libname.outputs.NAME }}
         path: ./build/debug_${{ steps.libname.outputs.NAME }}
+        if-no-files-found: error
+
+    - name: Upload qmod artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.qmodName }}.qmod
+        path: ./${{ env.qmodName }}.qmod
         if-no-files-found: error
