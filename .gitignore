@@ -52,3 +52,5 @@ qpm_defines.cmake
 *.backup
 qpm.lock.json
 qpm.shared.json
+*.qmod
+mod.json
