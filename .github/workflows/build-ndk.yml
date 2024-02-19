@@ -100,9 +100,6 @@ jobs:
         files=( $pattern )
         echo "NAME=${files[0]}" >> ${GITHUB_OUTPUT}
 
-    - name: Rename debug artifact
-      run: mv "./build/debug/${{ steps.libname.outputs.NAME }}" "./build/debug_${{ steps.libname.outputs.NAME }}"
-
     - name: Upload non-debug artifact
       uses: actions/upload-artifact@v2
       with:
