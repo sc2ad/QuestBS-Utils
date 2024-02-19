@@ -9,6 +9,8 @@
     "description": "Utils library",
     "dependencies": [],
     "modFiles": [],
-    "libraryFiles": [],
+    "libraryFiles": [
+        "${binary}"
+    ],
     "fileCopies": []
 }

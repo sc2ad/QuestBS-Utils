@@ -28,8 +28,8 @@
     "scripts": {
       "qmod": [
         "pwsh ./build.ps1",
-        "qpm qmod build",
-        "pwsh ./createqmod BS-Utils"
+        "qpm qmod build --isLibrary true",
+        "pwsh ./createqmod.ps1 BS-Utils"
       ]
     }
   }
