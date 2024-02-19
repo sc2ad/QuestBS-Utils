@@ -1,0 +1,78 @@
+{
+  "config": {
+    "version": "0.1.0",
+    "sharedDir": "shared",
+    "dependenciesDir": "extern",
+    "info": {
+      "name": "bs-utils",
+      "id": "bs-utils",
+      "version": "0.4.1",
+      "url": "https://github.com/sc2ad/QuestBS-Utils",
+      "additionalData": {
+        "soLink": "https://github.com/sc2ad/QuestBS-Utils/releases/download/v0.3.3/libbs-utils_0_3_3.so",
+        "debugSoLink": "https://github.com/sc2ad/QuestBS-Utils/releases/download/v0.3.3/debug_libbs-utils_0_3_3.so",
+        "overrideSoName": "libbs-utils.so",
+        "cmake": true
+      }
+    },
+    "workspace": {
+      "scripts": {
+        "qmod": [
+          "pwsh ./build.ps1",
+          "qpm qmod build --isLibrary true",
+          "pwsh ./createqmod.ps1 BS-Utils"
+        ]
+      }
+    },
+    "dependencies": [
+      {
+        "id": "beatsaber-hook",
+        "versionRange": "^5.0.0",
+        "additionalData": {}
+      },
+      {
+        "id": "scotland2",
+        "versionRange": "^0.1.4",
+        "additionalData": {}
+      }
+    ]
+  },
+  "restoredDependencies": [
+    {
+      "dependency": {
+        "id": "libil2cpp",
+        "versionRange": "=0.3.1",
+        "additionalData": {
+          "headersOnly": true
+        }
+      },
+      "version": "0.3.1"
+    },
+    {
+      "dependency": {
+        "id": "beatsaber-hook",
+        "versionRange": "=5.0.9",
+        "additionalData": {
+          "soLink": "https://github.com/QuestPackageManager/beatsaber-hook/releases/download/v5.0.9/libbeatsaber-hook_5_0_9.so",
+          "debugSoLink": "https://github.com/QuestPackageManager/beatsaber-hook/releases/download/v5.0.9/debug_libbeatsaber-hook_5_0_9.so",
+          "branchName": "version/v5_0_9",
+          "cmake": true
+        }
+      },
+      "version": "5.0.9"
+    },
+    {
+      "dependency": {
+        "id": "scotland2",
+        "versionRange": "=0.1.4",
+        "additionalData": {
+          "soLink": "https://github.com/sc2ad/scotland2/releases/download/v0.1.4/libsl2.so",
+          "debugSoLink": "https://github.com/sc2ad/scotland2/releases/download/v0.1.4/debug_libsl2.so",
+          "overrideSoName": "libsl2.so",
+          "branchName": "version/v0_1_4"
+        }
+      },
+      "version": "0.1.4"
+    }
+  ]
+}

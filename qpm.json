@@ -9,7 +9,8 @@
     "additionalData": {
       "soLink": "https://github.com/sc2ad/QuestBS-Utils/releases/download/v0.3.3/libbs-utils_0_3_3.so",
       "debugSoLink": "https://github.com/sc2ad/QuestBS-Utils/releases/download/v0.3.3/debug_libbs-utils_0_3_3.so",
-      "overrideSoName": "libbs-utils.so"
+      "overrideSoName": "libbs-utils.so",
+      "cmake": true
     }
   },
   "dependencies": [
