@@ -2,6 +2,7 @@
 
 #include <string>
 #include <unordered_set>
+#include "_config.h"
 #include "scotland2/shared/loader.hpp"
 
 namespace bs_utils {
@@ -9,10 +10,10 @@ namespace bs_utils {
     /// PLEASE USE beatsaber-hook's VERSION OF THIS FUNCTION INSTEAD! SEE config-utils.hpp
     /// @param info The const ModInfo& to find a path for.
     /// @return The path to the directory.
-    std::string getDataDir(const modloader::ModInfo& info);
+    BS_UTILS_EXPORT std::string getDataDir(const modloader::ModInfo& info);
 
     /// @struct Information about the mod that is currentlying disabling score submission
-    struct DisablingModInfo {
+    struct BS_UTILS_EXPORT DisablingModInfo {
         // Id of the mod disabling
         std::string id;
         // Version of the mod disabling
@@ -30,7 +31,7 @@ namespace bs_utils {
         }
     };
     /// @class Hash function for DisablingModInfos so it can be used in a map.
-    class DisablingModInfoHash
+    class BS_UTILS_EXPORT DisablingModInfoHash
     {
         public:
             size_t operator()(const DisablingModInfo& info) const {
@@ -39,7 +40,7 @@ namespace bs_utils {
         private:
             std::hash<std::string> strHasher;
     };
-    class Submission {
+    class BS_UTILS_EXPORT Submission {
         public:
             /// @brief Disable score submission for the provided ModInfo&.
             /// @param info ModInfo& to disable score under.
