@@ -1,8 +1,8 @@
 #pragma once
 #include "beatsaber-hook/shared/utils/logging.hpp"
 
-#ifndef ID
-#define ID "bs-utils"
+#ifndef MOD_ID
+#define MOD_ID "bs-utils"
 #endif
 
 #ifndef VERSION

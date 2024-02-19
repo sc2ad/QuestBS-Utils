@@ -15,14 +15,22 @@
   "dependencies": [
     {
       "id": "beatsaber-hook",
-      "versionRange": "^3.6.0",
+      "versionRange": "^5.0.0",
       "additionalData": {}
     },
     {
-      "id": "modloader",
-      "versionRange": "^1.2.3",
+      "id": "scotland2",
+      "versionRange": "^0.1.4",
       "additionalData": {}
     }
   ],
-  "additionalData": {}
+  "workspace": {
+    "scripts": {
+      "qmod": [
+        "pwsh ./build.ps1",
+        "qpm qmod build",
+        "pwsh ./createqmod BS-Utils"
+      ]
+    }
+  }
 }

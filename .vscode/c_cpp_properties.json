@@ -5,7 +5,7 @@
         "__GNUC__",
         "__aarch64__",
         "VERSION=\"0.3.3\"",
-        "ID=\"bs-utils\""
+        "MOD_ID=\"bs-utils\""
       ],
       "includePath": [
         "${workspaceFolder}/**",

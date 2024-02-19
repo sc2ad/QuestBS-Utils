@@ -27,8 +27,8 @@ MAKE_HOOK_FIND_CLASS_UNSAFE_STATIC (LevelCompletionResultsHelper_ProcessScore, "
 }
 
 namespace bs_utils {
-    std::string getDataDir(const ModInfo& info) {
-        auto path = string_format(PERSISTENT_DIR, Modloader::getApplicationId().c_str(), info.id.c_str());
+    std::string getDataDir(const modloader::ModInfo& info) {
+        auto path = string_format(PERSISTENT_DIR, modloader::get_application_id().c_str(), info.id.c_str());
         mkpath(path);
         return path;
     }
@@ -40,13 +40,13 @@ namespace bs_utils {
     void Submission::init() {
         if (!initialized) {
             initMutex.lock();
-            INSTALL_HOOK(getLogger(), LevelCompletionResultsHelper_ProcessScore);
+            INSTALL_HOOK_ORIG(getLogger(), LevelCompletionResultsHelper_ProcessScore);
             initialized = true;
             initMutex.unlock();
         }
     }
 
-    void Submission::enable(const ModInfo& info) {
+    void Submission::enable(const modloader::ModInfo& info) {
         init();
         submissionMutex.lock();
         auto itr = disablingMods.find(info);
@@ -65,7 +65,7 @@ namespace bs_utils {
             submissionMutex.unlock();
         }
     }
-    void Submission::disable(const ModInfo& info) {
+    void Submission::disable(const modloader::ModInfo& info) {
         init();
         submissionMutex.lock();
         if (disablingMods.find(info) != disablingMods.end()) {
